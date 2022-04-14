@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/postbackground"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.AddPostFragment">
+
+
+    <ImageView
+        android:id="@+id/postImageSelected"
+        android:layout_width="410dp"
+        android:layout_height="336dp"
+        android:layout_marginTop="108dp"
+        android:src="@drawable/newpost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD NEW POST HERE"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/postImageSelected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/postDescription"
+        android:layout_width="389dp"
+        android:layout_height="180dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="79dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Add Post Description Here..."
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postImageSelected"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/postButton"
+        android:layout_width="380dp"
+        android:layout_height="61dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/post"
+        android:textSize="20sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDescription"
+        app:layout_constraintVertical_bias="0.181" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

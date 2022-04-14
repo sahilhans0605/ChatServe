@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "771370189196",
+    "project_id": "frbsusersignup",
+    "storage_bucket": "frbsusersignup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771370189196:android:4c6d4dcaa5a6c6059ad6a9",
+        "android_client_info": {
+          "package_name": "com.sahilhans0605.firebaseusersignup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771370189196-n6a47bsaucu2aslj0e1ebhoiauqg5c29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWwjLThNrcbbO24BamA6NjsEYJ8IA_9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771370189196-n6a47bsaucu2aslj0e1ebhoiauqg5c29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

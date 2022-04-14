@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="?selectableItemBackground">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="371dp"
+        android:layout_height="124dp"
+        android:layout_margin="10dp"
+        android:background="?selectableItemBackground"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:drawable/ic_notification_overlay" />
+
+        <TextView
+            android:id="@+id/nameSampleRow"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="6dp"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/universityNameSampleRow"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="30dp"
+            android:text="University Name"
+            android:textColor="#676767"
+            android:textSize="16sp"
+
+            />
+
+        <TextView
+            android:id="@+id/descriptionSampleRow"
+            android:layout_width="273dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="50dp"
+            android:inputType="textMultiLine"
+            android:text="Description"
+            android:textColor="#A19A9A"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/button_collab"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="#000000"
+            android:text="collab"
+            android:textSize="10sp"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/button_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="#000000"
+            android:text="Message"
+            android:textSize="10sp"
+            app:cornerRadius="10dp" />
+
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
