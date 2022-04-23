@@ -13,18 +13,16 @@
         app:itemIconTint="@color/design_default_color_error"
         app:itemTextColor="#FF4081"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameContainer"
         app:menu="@menu/menu_item" />
 
     <FrameLayout
         android:id="@+id/frameContainer"
         android:layout_width="409dp"
         android:layout_height="669dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

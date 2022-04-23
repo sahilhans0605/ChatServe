@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,7 @@ public class SelfProfile extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         postList = new ArrayList<>();
         adapter = new postUserAdapterPublic(this, postList);
+        Toast.makeText(this, "Your profile :)", Toast.LENGTH_LONG).show();
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

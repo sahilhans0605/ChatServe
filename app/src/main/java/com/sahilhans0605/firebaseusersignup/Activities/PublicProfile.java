@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +64,8 @@ public class PublicProfile extends AppCompatActivity {
         binding.name.setText(name);
         binding.universityNamePublicprofile.setText(university);
         binding.description.setText(skills);
+        Toast.makeText(this, name+"'s"+" Profile :)", Toast.LENGTH_LONG).show();
+
 //        if (id.equals(firebaseUser.getUid().toString())) {
 //            binding.collabButton.setText("Edit Profile");
 //        }

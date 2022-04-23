@@ -50,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         binding.recyclerView.hasFixedSize();
+        Toast.makeText(this, "Search for people by their skills...", Toast.LENGTH_LONG).show();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {

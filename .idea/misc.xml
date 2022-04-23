@@ -4,18 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/drawable-anydpi/ic_action_home.xml" value="0.1275" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/drawable/rounded_textview.xml" value="0.1225" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_add_post.xml" value="0.14407866609662248" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_chat.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_chat.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_editprofile.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_home_post.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_login.xml" value="0.12" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_public_profile.xml" value="0.22" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_public_profile.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_register.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_search.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_search.xml" value="0.12" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_self_profile.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/activity_show_image.xml" value="0.14407866609662248" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/bottom_navigation_bar.xml" value="0.13125267208208635" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/bottom_navigation_bar.xml" value="0.11333333333333334" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/chat_item_receive.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/chat_item_sent.xml" value="0.22" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/demo_recycler_shimmer.xml" value="0.22" />
@@ -25,11 +26,13 @@
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/fragment_search.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/fragment_settings.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/login_sample.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/post_profile_user_and_public.xml" value="0.14407866609662248" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/sample_post.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/sample_row.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/university_details.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/layout/university_details.xml" value="0.22" />
         <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/menu/menu_item.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/sahil/AndroidStudioProjects/FirebaseUserSignUp/app/src/main/res/xml/tabs.xml" value="0.14407866609662248" />
       </map>
     </option>
   </component>

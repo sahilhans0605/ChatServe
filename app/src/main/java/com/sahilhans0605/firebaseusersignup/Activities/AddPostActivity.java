@@ -58,6 +58,7 @@ public class AddPostActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Uploading Data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toast.makeText(this, "Add new post here..", Toast.LENGTH_SHORT).show();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         binding.postImageSelected.setOnClickListener(new View.OnClickListener() {

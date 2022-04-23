@@ -222,7 +222,7 @@ public class ChatActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(ChatActivity.this, error.getLocalizedMessage()+"", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ChatActivity.this, error.getLocalizedMessage()+"", Toast.LENGTH_LONG).show();
 
                 }
             }){

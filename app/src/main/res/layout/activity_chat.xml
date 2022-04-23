@@ -10,7 +10,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMessage"
+        android:id="@+id/cardViewChatMessage"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
@@ -31,29 +31,20 @@
                 android:id="@+id/messageBoxEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="11dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Message..."
+                android:hint="Message...."
                 android:inputType="textPersonName"
-                android:padding="8dp"
-                android:textSize="14sp" />
+                android:padding="9dp"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/attachmentIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="12dp"
                 app:srcCompat="@drawable/attachment"
-                app:tint="#676767" />
-
-            <ImageView
-                android:id="@+id/cameraIcon"
-                android:layout_width="16dp"
-                android:layout_height="15dp"
-                android:layout_marginRight="12dp"
-                android:backgroundTint="#7C4DFF"
-                app:srcCompat="@drawable/camer"
                 app:tint="#676767" />
 
         </LinearLayout>
@@ -64,21 +55,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewMessage"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewChatMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/sendBtnIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="9dp"
         android:background="@drawable/newmoon"
 
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardViewMessage"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewChatMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardViewMessage"
+        app:layout_constraintTop_toTopOf="@+id/cardViewChatMessage"
         app:srcCompat="@drawable/ic_baseline_send_24"
         app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

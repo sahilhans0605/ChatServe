@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.sahilhans0605.firebaseusersignup.Activities.AddPostActivity;
 import com.sahilhans0605.firebaseusersignup.Activities.HomeActivityPost;
+import com.sahilhans0605.firebaseusersignup.Activities.SearchActivity;
 import com.sahilhans0605.firebaseusersignup.Adapters.HomePostAdapter;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
@@ -110,10 +112,13 @@ public class HomeFragment extends Fragment {
                         if (dataModel.getId().equals(id)) {
                             postlist.add(dataModel);
                         }
+                        Intent intent = new Intent(getContext(), SearchActivity.class);
 
                     }
                     if(postlist.isEmpty()) {
                         dialog.dismiss();
+                        Toast.makeText(getContext(),"No collaborations yet,Collab with people to check their posts in the search section:)",Toast.LENGTH_LONG).show();
+
                     }
                     dialog.dismiss();
                     adapterHomePost.notifyDataSetChanged();
