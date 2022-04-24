@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -63,11 +64,9 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         db = FirebaseDatabase.getInstance();
-        getSupportActionBar().hide();
         user = FirebaseAuth.getInstance().getCurrentUser();
         auth = FirebaseAuth.getInstance();
         data = new ArrayList<>();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         usersLoggedInAdapter = new myAdapter(SearchActivity.this, data);
         binding.recyclerView.setAdapter(usersLoggedInAdapter);
 //        dialog = new ProgressDialog(this);
@@ -106,8 +105,6 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private void readUsers() {
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,5 +135,4 @@ public class SearchActivity extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
-
-}
+    }

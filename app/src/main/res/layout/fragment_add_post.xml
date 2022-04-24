@@ -3,9 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/postbackground"
     android:layout_height="match_parent"
     tools:context=".Fragments.AddPostFragment">
 
 
+    <ImageView
+        android:id="@+id/postImageSelectedFragment"
+        android:layout_width="287dp"
+        android:layout_height="276dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/newpost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD NEW POST HERE"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/postDescriptionFragment"
+        android:layout_width="345dp"
+        android:layout_height="180dp"
+        android:ems="10"
+        android:layout_marginTop="70dp"
+        android:gravity="start|top"
+        android:hint="Add Post Description Here..."
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postImageSelectedFragment" />
+
+    <Button
+        android:id="@+id/postButtonFragment"
+        android:layout_width="336dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/post"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postDescriptionFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

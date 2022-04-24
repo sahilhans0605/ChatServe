@@ -57,7 +57,6 @@ public class AddPostActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         dialog = new ProgressDialog(this);
         dialog.setMessage("Uploading Data");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toast.makeText(this, "Add new post here..", Toast.LENGTH_SHORT).show();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -124,7 +123,7 @@ public class AddPostActivity extends AppCompatActivity {
                             postDataModel data = new postDataModel(postDescription, uri.toString(), id, postId);
                             dbRef.child(postId).setValue(data);
                             Toast.makeText(AddPostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(AddPostActivity.this, BottomNavigationBarActivity.class);
+                            Intent intent = new Intent(AddPostActivity.this, HomeActivityPost.class);
                             startActivity(intent);
                         }
                     });

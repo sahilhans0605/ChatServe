@@ -2,106 +2,136 @@ package com.sahilhans0605.firebaseusersignup.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.sahilhans0605.firebaseusersignup.Adapters.HomePostAdapter;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.google.android.material.navigation.NavigationBarView;
+import com.sahilhans0605.firebaseusersignup.Fragments.AddPostFragment;
+import com.sahilhans0605.firebaseusersignup.Fragments.FollowersFragment;
+import com.sahilhans0605.firebaseusersignup.Fragments.HomeFragment;
+import com.sahilhans0605.firebaseusersignup.Fragments.ProfileFragment;
+import com.sahilhans0605.firebaseusersignup.Fragments.SearchFragment;
 import com.sahilhans0605.firebaseusersignup.R;
-import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
-import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityHomePostBinding;
 
-import java.util.ArrayList;
-
 public class HomeActivityPost extends AppCompatActivity {
+    Fragment selectedFragment;
     ActivityHomePostBinding binding;
-    ArrayList<postDataModel> postlist;
-    ArrayList<String> followingList;
-    HomePostAdapter adapterHomePost;
-    FirebaseDatabase database;
-    FirebaseUser user;
+    private final int ID_HOME = 1;
+    private final int ID_ADD = 2;
+    private final int ID_SEARCH = 3;
+    private final int ID_SETTINGS = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = ActivityHomePostBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        postlist = new ArrayList<postDataModel>();
-//        database = FirebaseDatabase.getInstance();
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-////        Log.i("user waali",user.getUid());
-////        Log.i("non user waali",FirebaseAuth.getInstance().getUid());
+        binding = ActivityHomePostBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+//        FragmentTransaction homeTransaction = getSupportFragmentManager().beginTransaction();
+//        homeTransaction.replace(R.id.frameContainer, new HomeFragment());
+//        homeTransaction.commit();
+
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_action_home));
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_ADD, R.drawable.ic_add));
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SEARCH, R.drawable.ic_baseline_search_24));
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SETTINGS, R.drawable.ic_settings));
+        binding.bottomNavigationBar.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+            @Override
+            public void onShowItem(MeowBottomNavigation.Model item) {
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                Fragment fragment = null;
+                switch (item.getId()) {
+
+                    case ID_HOME:
+                        fragment = new HomeFragment();
+                        break;
+
+                    case ID_ADD:
+//                        Intent intent1 = new Intent(HomeActivityPost.this, AddPostActivity.class);
+//                        startActivity(intent1);
+////                        finish();
+                        fragment = new AddPostFragment();
+                        break;
+
+                    case ID_SEARCH:
+                        fragment = new SearchFragment();
+                        break;
+                    case ID_SETTINGS:
+//                        Intent intent2 = new Intent(HomeActivityPost.this, SelfProfile.class);
+//                        startActivity(intent2);
+                        fragment = new ProfileFragment();
+
+                        break;
+
+                }
+                loadFragment(fragment);
+
+            }
+        });
+        binding.bottomNavigationBar.show(ID_HOME,true);
+        binding.bottomNavigationBar.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+            @Override
+            public void onClickItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
+
+        binding.bottomNavigationBar.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+                Toast.makeText(HomeActivityPost.this, "Already selected...", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        binding.bottomNavigationBar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //
-//        adapterHomePost = new HomePostAdapter(postlist, HomeActivityPost.this);
-//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        binding.recyclerView.setAdapter(adapterHomePost);
-//        getFollowingListOfCurrentUsers();
+//                switch (item.getItemId()) {
+//
+//                    case R.id.homeFragment:
+//                        transaction.replace(R.id.frameContainer, new HomeFragment());
+//                        break;
+//
+//                    case R.id.addPostFragment:
+//                        Intent intent1 = new Intent(HomeActivityPost.this, AddPostActivity.class);
+//                        startActivity(intent1);
+////                        finish();
+////                        transaction.replace(R.id.frameContainer, new AddPostFragment());
+//                        break;
+//
+//                    case R.id.searchFragment:
+//                        Intent intent = new Intent(HomeActivityPost.this, SearchActivity.class);
+//                        startActivity(intent);
+////                        finish();
+//
+//
+////                        transaction.replace(R.id.frameContainer, new SearchFragment());
+//                        break;
+//                    case R.id.settingsFragment:
+//                        Intent intent2 = new Intent(HomeActivityPost.this, SelfProfile.class);
+//                        startActivity(intent2);
+//                        break;
+//
+//                }
+//                transaction.commit();
+//
+//
+//                return true;
+//            }
+//        });
+
+
     }
 
-    private void getFollowingListOfCurrentUsers() {
-        followingList = new ArrayList<>();
-        DatabaseReference ref = database.getReference("collab").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        ref.child("collaborating").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                followingList.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    followingList.add(snapshot1.getKey());
-                }
-                readPosts();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer, fragment).commit();
     }
-
-    private void readPosts() {
-        DatabaseReference ref = database.getReference("Posts");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postlist.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    postDataModel dataModel = snapshot1.getValue(postDataModel.class);
-                    for (String id : followingList) {
-                        if (dataModel.getId().equals(id)) {
-                            postlist.add(dataModel);
-                        }
-                    }
-                    adapterHomePost.notifyDataSetChanged();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-
 }

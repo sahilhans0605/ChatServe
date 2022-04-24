@@ -4,32 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/postbackground"
+    android:background="#EBF1F7"
     tools:context=".Activities.UniversityDetails">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/userImage"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/user_image"
+        android:src="@drawable/ic_usersvg"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/browsebutton"
-        android:layout_width="159dp"
-        android:layout_height="64dp"
-        android:backgroundTint="@color/black"
-        android:text="Browse"
-        app:layout_constraintBottom_toBottomOf="@+id/userImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/userImage"
-        app:layout_constraintTop_toTopOf="@+id/userImage"
-        app:layout_constraintVertical_bias="0.28" />
 
     <EditText
         android:id="@+id/nameUniversityDetails"
@@ -116,4 +103,16 @@
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/skills" />
+
+    <ImageView
+        android:id="@+id/addIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/userImage"
+        app:layout_constraintEnd_toEndOf="@+id/userImage"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/userImage"
+        app:layout_constraintTop_toTopOf="@+id/userImage"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_editsvg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

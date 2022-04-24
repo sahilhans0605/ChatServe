@@ -62,8 +62,8 @@ public class HomeFragment extends Fragment {
 //        Log.i("non user waali",FirebaseAuth.getInstance().getUid());
 
         adapterHomePost = new HomePostAdapter(postlist, getContext());
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setAdapter(adapterHomePost);
+        binding.recyclerViewHome.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerViewHome.setAdapter(adapterHomePost);
         getFollowingListOfCurrentUsers();
         return view;
 
@@ -112,12 +112,12 @@ public class HomeFragment extends Fragment {
                         if (dataModel.getId().equals(id)) {
                             postlist.add(dataModel);
                         }
-                        Intent intent = new Intent(getContext(), SearchActivity.class);
+//                        Intent intent = new Intent(getContext(), SearchActivity.class);
 
                     }
                     if(postlist.isEmpty()) {
                         dialog.dismiss();
-                        Toast.makeText(getContext(),"No collaborations yet,Collab with people to check their posts in the search section:)",Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(),"No collaborations yet,Collab with people to check their posts in the search section:)",Toast.LENGTH_LONG).show();
 
                     }
                     dialog.dismiss();

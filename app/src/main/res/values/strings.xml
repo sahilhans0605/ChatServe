@@ -5,5 +5,8 @@
     <string name="add_new_post_here">Add new Post Here!</string>
     <string name="your_followers">Your Followers!!</string>
     <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
     <string name="post">POST</string>
 </resources>

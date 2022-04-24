@@ -62,7 +62,7 @@ public class UniversityDetails extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        binding.browsebutton.setOnClickListener(new View.OnClickListener() {
+        binding.userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Dexter.withContext(UniversityDetails.this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE).withListener(new PermissionListener() {
@@ -85,6 +85,7 @@ public class UniversityDetails extends AppCompatActivity {
 
             }
         });
+
 
 
     }
@@ -135,7 +136,7 @@ public class UniversityDetails extends AppCompatActivity {
 
                                         dbRef.setValue(data);
                                         Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(UniversityDetails.this, BottomNavigationBarActivity.class);
+                                        Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
                                         startActivity(intent);
                                         finishAffinity();
                                     }
@@ -161,13 +162,14 @@ public class UniversityDetails extends AppCompatActivity {
                 });
 
             } else {
+                binding.userImage.setImageResource(R.drawable.user_image);
                 dialog.dismiss();
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
                 DatabaseReference dbRef = db.getReference().child("Users").child(id);
                 DataModel data = new DataModel(id, universityCollege, name, skills, course, "No image");
                 dbRef.setValue(data);
                 Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(UniversityDetails.this, BottomNavigationBarActivity.class);
+                Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
                 startActivity(intent);
                 finishAffinity();
 

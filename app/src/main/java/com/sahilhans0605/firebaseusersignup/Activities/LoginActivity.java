@@ -2,6 +2,7 @@ package com.sahilhans0605.firebaseusersignup.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,12 +16,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog dialog;
+    FirebaseUser user;
 
 
     @Override
@@ -28,10 +32,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        user = FirebaseAuth.getInstance().getCurrentUser();
         dialog = new ProgressDialog(this);
+        dialog.setCanceledOnTouchOutside(false);
+        getWindow().setStatusBarColor(ContextCompat.getColor(LoginActivity.this, R.color.statusBar));
         dialog.setMessage("Please wait while we are signing you in");
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (user != null) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivityPost.class);
+            startActivity(intent);
+            finishAffinity();
+        }
         binding.goToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(LoginActivity.this, BottomNavigationBarActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivityPost.class);
                         intent.putExtra("Email", email);
                         intent.putExtra("Uid", auth.getCurrentUser().getUid());
                         startActivity(intent);

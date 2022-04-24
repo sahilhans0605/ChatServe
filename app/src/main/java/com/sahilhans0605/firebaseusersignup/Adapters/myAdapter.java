@@ -71,7 +71,6 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         if (dataModel.getId().equals(firebaseUser.getUid())) {
             holder.binding.buttonCollab.setVisibility(View.GONE);
         }
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Glide.with(context).load(dataModel.getPurl()).placeholder(R.drawable.user_image).into(holder.binding.userImage);
         isFollowing(dataModel.getId(), holder.binding.buttonCollab);
