@@ -1,6 +1,7 @@
 package com.sahilhans0605.firebaseusersignup.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.sahilhans0605.firebaseusersignup.Activities.ImageDisplay;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.PostProfileUserAndPublicBinding;
@@ -34,7 +37,17 @@ public class postUserAdapterPublic extends RecyclerView.Adapter<postUserAdapterP
     @Override
     public void onBindViewHolder(@NonNull postPublicViewHolder holder, int position) {
         postDataModel PostdataModel = postList.get(position);
-        Glide.with(context).load(PostdataModel.getPurl()).into(holder.binding.postPublicImage);
+        Glide.with(context).load(PostdataModel.getPurl()).apply(new RequestOptions().override(500, 500)).centerInside().into(holder.binding.postPublicImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImageDisplay.class);
+                intent.putExtra("postImage", PostdataModel.getPurl());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

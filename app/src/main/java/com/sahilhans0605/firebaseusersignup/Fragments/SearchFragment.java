@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment {
         dialog.setMessage("Fetching data....");
         dialog.setCanceledOnTouchOutside(false);
 
-        binding.shimmerFrameLayout.startShimmer();
+//        binding.shimmerFrameLayout.startShimmer();
         Toast.makeText(getContext(), "Search for people by their skills...", Toast.LENGTH_LONG).show();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
@@ -126,17 +126,18 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 data.clear();
-
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
                     DataModel dataModel = snapshot1.getValue(DataModel.class);
-                    if (!dataModel.getId().equals(FirebaseAuth.getInstance().getUid()))
+
+//                    if (!dataModel.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
 
                         data.add(dataModel);
-
+//                }
                 }
-                binding.shimmerFrameLayout.stopShimmer();
-                binding.shimmerFrameLayout.setVisibility(View.GONE);
+
+//                binding.shimmerFrameLayout.stopShimmer();
+//                binding.shimmerFrameLayout.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
 
 //                dialog.dismiss();

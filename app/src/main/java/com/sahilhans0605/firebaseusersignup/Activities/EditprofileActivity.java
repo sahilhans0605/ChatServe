@@ -33,6 +33,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.sahilhans0605.firebaseusersignup.Fragments.ProfileFragment;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityEditprofileBinding;
@@ -49,7 +50,7 @@ public class EditprofileActivity extends AppCompatActivity {
     String updatedCourse;
     String updatedSkills;
     Uri browsedImage;
-    ProgressDialog dialog;
+    FirebaseStorage storage;
     ActivityResultLauncher<String> getImage = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
@@ -66,9 +67,8 @@ public class EditprofileActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         db = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Updating your profile...");
-        dialog.setCanceledOnTouchOutside(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        storage = FirebaseStorage.getInstance();
         binding.userprofileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +102,8 @@ public class EditprofileActivity extends AppCompatActivity {
                 updatedCourse = binding.CoursenameEdit.getText().toString();
                 updatedUniversity = binding.UniversitynameEdit.getText().toString();
                 updateProfile(updatedName, updatedSkills, updatedUniversity, updatedCourse);
-                Toast.makeText(EditprofileActivity.this,"Your profile will be updated in few moments...",Toast.LENGTH_LONG).show();
+                Toast.makeText(EditprofileActivity.this, "Your profile will be updated in few moments...", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(EditprofileActivity.this, SelfProfile.class);
-                startActivity(intent);
-                finishAffinity();
             }
         });
 
@@ -118,7 +115,8 @@ public class EditprofileActivity extends AppCompatActivity {
                 binding.UniversitynameEdit.setText(model.getUniversityCollege());
                 binding.SkillsEdit.setText(model.getSkills());
                 binding.CoursenameEdit.setText(model.getCourse());
-                Glide.with(EditprofileActivity.this).load(model.getPurl()).placeholder(R.drawable.user_image).into(binding.userprofileEdit);
+
+                Glide.with(getApplicationContext()).load(model.getPurl()).placeholder(R.drawable.ic_user_image_2).into(binding.userprofileEdit);
 
             }
 
@@ -134,11 +132,8 @@ public class EditprofileActivity extends AppCompatActivity {
         DatabaseReference ref = db.getReference().child("Users").child(user.getUid());
 
 
-        dialog.show();
-
         Date date = new Date();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference StorageRef = storage.getReference("UserProfiles " + date.getTime());
+        StorageReference StorageRef = storage.getReference("UserProfilesUpdated " + date.getTime());
         if (browsedImage != null) {
             StorageRef.putFile(browsedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -146,7 +141,6 @@ public class EditprofileActivity extends AppCompatActivity {
                     StorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            dialog.dismiss();
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("universityCollege", updatedUniversity);
                             hashMap.put("skills", updatedSkills);
@@ -154,8 +148,6 @@ public class EditprofileActivity extends AppCompatActivity {
                             hashMap.put("course", updatedCourse);
                             hashMap.put("purl", uri.toString());
                             ref.updateChildren(hashMap);
-
-
                         }
                     });
 
@@ -165,13 +157,11 @@ public class EditprofileActivity extends AppCompatActivity {
                 public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
 
                     float percent = 100 * (snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                    dialog.setMessage("Uploaded " + (int) percent + " % ");
 
                 }
             });
 
-        }else{
-            dialog.dismiss();
+        } else {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("universityCollege", updatedUniversity);
             hashMap.put("skills", updatedSkills);
@@ -179,5 +169,11 @@ public class EditprofileActivity extends AppCompatActivity {
             hashMap.put("course", updatedCourse);
             ref.updateChildren(hashMap);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 }

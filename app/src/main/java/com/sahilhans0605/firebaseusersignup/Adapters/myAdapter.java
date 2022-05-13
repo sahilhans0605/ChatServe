@@ -50,6 +50,14 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         this.data = data;
     }
 
+
+    public void filterList(List<DataModel> filteredList) {
+        data = filteredList;
+        notifyDataSetChanged();
+
+
+    }
+
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -66,48 +74,48 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         holder.binding.universityNameSampleRow.setText(dataModel.getUniversityCollege());
         holder.binding.nameSampleRow.setText(dataModel.getName());
         holder.binding.descriptionSampleRow.setText(dataModel.getSkills());
-        holder.binding.buttonCollab.setVisibility(View.VISIBLE);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (dataModel.getId().equals(firebaseUser.getUid())) {
-            holder.binding.buttonCollab.setVisibility(View.GONE);
-        }
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Glide.with(context).load(dataModel.getPurl()).placeholder(R.drawable.user_image).into(holder.binding.userImage);
-        isFollowing(dataModel.getId(), holder.binding.buttonCollab);
+//        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+//        holder.binding.buttonCollab.setVisibility(View.VISIBLE);
+//        if (dataModel.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+//            holder.binding.buttonChat.setVisibility(View.GONE);
+//        }
+        Glide.with(context).load(dataModel.getPurl()).placeholder(R.drawable.ic_user_image_2).into(holder.binding.userImage);
+//        isFollowing(dataModel.getId(), holder.binding.buttonCollab);
 
-        holder.binding.buttonCollab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.binding.buttonCollab.getText().toString().equals("collab")) {
-                    FirebaseDatabase.getInstance().getReference().child("collab").child(firebaseUser.getUid()).
-                            child("collaborating").child(dataModel.getId()).setValue(true);
-
-                    FirebaseDatabase.getInstance().getReference().child("collab").child(dataModel.getId()).
-                            child("collaboraters").child(firebaseUser.getUid()).setValue(true);
+//        holder.binding.buttonCollab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (holder.binding.buttonCollab.getText().toString().equals("collab")) {
+//                    FirebaseDatabase.getInstance().getReference().child("collab").child(firebaseUser.getUid()).
+//                            child("collaborating").child(dataModel.getId()).setValue(true);
+//
+//                    FirebaseDatabase.getInstance().getReference().child("collab").child(dataModel.getId()).
+//                            child("collaboraters").child(firebaseUser.getUid()).setValue(true);
 
 //                    sendMessageNotification(dataModel.getName(), dataModel.getName(), dataModel.getToken());
 
-                } else {
-                    FirebaseDatabase.getInstance().getReference().child("collab").child(firebaseUser.getUid()).
-                            child("collaborating").child(dataModel.getId()).removeValue();
+//                } else {
+//                    FirebaseDatabase.getInstance().getReference().child("collab").child(firebaseUser.getUid()).
+//                            child("collaborating").child(dataModel.getId()).removeValue();
+//
+//                    FirebaseDatabase.getInstance().getReference().child("collab").child(dataModel.getId()).
+//                            child("collaboraters").child(firebaseUser.getUid()).removeValue();
+//
+////                    sendMessageNotification(dataModel.getName(), dataModel.getName() , dataModel.getToken());
+//
+//                }
 
-                    FirebaseDatabase.getInstance().getReference().child("collab").child(dataModel.getId()).
-                            child("collaboraters").child(firebaseUser.getUid()).removeValue();
 
-//                    sendMessageNotification(dataModel.getName(), dataModel.getName() , dataModel.getToken());
-
-                }
-            }
-        });
-        holder.binding.buttonChat.setOnClickListener(new View.OnClickListener() {
+//            }
+//
+//        });
+        holder.binding.chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("name", dataModel.getName());
                 intent.putExtra("uid", dataModel.getId());
                 intent.putExtra("Token", dataModel.getToken());
-//                Log.i("Token", dataModel.getToken());
-//                Log.i("Name", dataModel.getName());
                 context.startActivity(intent);
 
             }
@@ -134,18 +142,11 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         return data.size();
     }
 
-    public void filterList(List<DataModel> filteredList) {
-        data = filteredList;
-        notifyDataSetChanged();
-
-
-    }
 
 
     public class myViewHolder extends RecyclerView.ViewHolder {
 
         SampleRowBinding binding;
-
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = SampleRowBinding.bind(itemView);
@@ -153,28 +154,28 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         }
     }
 
-    private void isFollowing(String id, Button btn) {
-
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference();
-        ref.child("collab").child(firebaseUser.getUid()).child("collaborating").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.child(id).exists()) {
-                    btn.setText("collaborating");
-                } else {
-                    btn.setText("collab");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    private void isFollowing(String id, Button btn) {
+//
+//        FirebaseDatabase db = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = db.getReference();
+//        ref.child("collab").child(firebaseUser.getUid()).child("collaborating").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                if (snapshot.child(id).exists()) {
+//                    btn.setText("collaborating");
+//                } else {
+//                    btn.setText("collab");
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
     void sendMessageNotification(String name, String message, String token) {
         RequestQueue queue = Volley.newRequestQueue(context);

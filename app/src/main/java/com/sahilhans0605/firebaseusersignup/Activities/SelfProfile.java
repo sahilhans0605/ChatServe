@@ -43,7 +43,8 @@ public class SelfProfile extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         postList = new ArrayList<>();
         adapter = new postUserAdapterPublic(this, postList);
-        Toast.makeText(this, "Your profile :)", Toast.LENGTH_LONG).show();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +73,7 @@ public class SelfProfile extends AppCompatActivity {
                 binding.Self.setText(model.getName());
                 binding.universityNameSelf.setText(model.getUniversityCollege());
                 binding.descriptionSelf.setText(model.getSkills());
-                Glide.with(SelfProfile.this).load(model.getPurl()).placeholder(R.drawable.user_image).into(binding.imageView);
+                Glide.with(SelfProfile.this).load(model.getPurl()).placeholder(R.drawable.ic_user_image_2).into(binding.imageView);
 
             }
 
@@ -126,6 +127,11 @@ public class SelfProfile extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
 

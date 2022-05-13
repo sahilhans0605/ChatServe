@@ -1,12 +1,14 @@
 package com.sahilhans0605.firebaseusersignup.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,23 +27,55 @@ public class HomeActivityPost extends AppCompatActivity {
     ActivityHomePostBinding binding;
     private final int ID_HOME = 1;
     private final int ID_ADD = 2;
-    private final int ID_SEARCH = 3;
+//    private final int ID_SEARCH = 3;
     private final int ID_SETTINGS = 4;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.topmenu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+//            case R.id.ProfileMenuTop:
+//                Intent intent = new Intent(HomeActivityPost.this, SelfProfile.class);
+//                startActivity(intent);
+//                break;
+
+            case R.id.SearchMenuTop:
+                Intent intent1 = new Intent(HomeActivityPost.this, SearchActivity.class);
+                startActivity(intent1);
+//                Toast.makeText(this, "Search clicked", Toast.LENGTH_LONG).show();
+                break;
+        }
+
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomePostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ActionBar customActionBar = getSupportActionBar();
+        customActionBar.setDisplayShowCustomEnabled(true);
+        customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        customActionBar.setCustomView(R.layout.custom_action_bar);
+        FragmentTransaction homeTransaction = getSupportFragmentManager().beginTransaction();
+        homeTransaction.replace(R.id.frameContainer, new HomeFragment());
+        homeTransaction.commit();
 
-//        FragmentTransaction homeTransaction = getSupportFragmentManager().beginTransaction();
-//        homeTransaction.replace(R.id.frameContainer, new HomeFragment());
-//        homeTransaction.commit();
-
-        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_action_home));
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_homesvg));
         binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_ADD, R.drawable.ic_add));
-        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SEARCH, R.drawable.ic_baseline_search_24));
-        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SETTINGS, R.drawable.ic_settings));
+//        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SEARCH, R.drawable.ic_search));
+        binding.bottomNavigationBar.add(new MeowBottomNavigation.Model(ID_SETTINGS, R.drawable.ic_usersvg));
         binding.bottomNavigationBar.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
@@ -60,9 +94,10 @@ public class HomeActivityPost extends AppCompatActivity {
                         fragment = new AddPostFragment();
                         break;
 
-                    case ID_SEARCH:
-                        fragment = new SearchFragment();
-                        break;
+//                    case ID_SEARCH:
+//                        Intent intent2 = new Intent(HomeActivityPost.this, SearchActivity.class);
+//                        startActivity(intent2);
+//                        break;
                     case ID_SETTINGS:
 //                        Intent intent2 = new Intent(HomeActivityPost.this, SelfProfile.class);
 //                        startActivity(intent2);
@@ -75,7 +110,7 @@ public class HomeActivityPost extends AppCompatActivity {
 
             }
         });
-        binding.bottomNavigationBar.show(ID_HOME,true);
+        binding.bottomNavigationBar.show(ID_HOME, true);
         binding.bottomNavigationBar.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EBF1F7"
+    android:background="@drawable/loginback"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EBF1F7"
+        android:background="@drawable/loginback"
         app:layout_constraintCircleRadius="20dp"
         tools:context=".Activities.SearchActivity">
 
@@ -88,7 +88,8 @@
                 android:layout_marginRight="30dp"
                 android:backgroundTint="#FC6B68"
                 android:padding="15dp"
-                android:text="Sign up"
+                android:textColor="@color/white"
+                android:text="Setup your profile"
                 android:textSize="15sp"
                 app:cornerRadius="10dp" />
 

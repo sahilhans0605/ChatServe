@@ -1,6 +1,7 @@
 package com.sahilhans0605.firebaseusersignup.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -34,7 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getWindow().setStatusBarColor(ContextCompat.getColor(RegisterActivity.this, R.color.statusBar));
-
+        ActionBar customActionBar = getSupportActionBar();
+        customActionBar.setDisplayShowCustomEnabled(true);
+        customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        customActionBar.setCustomView(R.layout.custom_action_bar);
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             Intent intent = new Intent(RegisterActivity.this, HomeActivityPost.class);
@@ -42,10 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
             finishAffinity();
         }
 
-
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Registering you...");
-        dialog.setCanceledOnTouchOutside(false);
 
         binding.goToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,36 +69,16 @@ public class RegisterActivity extends AppCompatActivity {
     private void authenticationCheck() {
         String email = binding.email.getText().toString();
         String password = binding.password.getText().toString();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
 
         if (!email.matches(emailPattern)) {
             binding.email.setError("Enter Correct Email");
 
         } else if (password.isEmpty() || password.length() < 6) {
             binding.password.setError("Add a strong Password");
-
-
-        } else {
-            dialog.show();
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Successfully Registered", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                        binding.email.setText("");
-                        binding.password.setText("");
-                        startActivity(new Intent(RegisterActivity.this, UniversityDetails.class));
-                        finishAffinity();
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "" + task.getException(), Toast.LENGTH_LONG).show();
-                        Log.i("Info", task.getException() + "");
-                        dialog.dismiss();
-
-                    }
-                }
-            });
         }
+        Intent intent = new Intent(RegisterActivity.this, UniversityDetails.class);
+        intent.putExtra("EMAIL", email);
+        intent.putExtra("PASSWORD", password);
+        startActivity(intent);
     }
 }

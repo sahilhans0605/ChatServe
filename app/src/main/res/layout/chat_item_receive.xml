@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#B2FF59"
+        android:background="@drawable/textviewstrokechatreceive"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,11 +28,11 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
+            android:padding="7dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
             android:text="TextView"
+            android:background="@drawable/textviewstrokechatreceive"
             android:textSize="13sp" />
     </LinearLayout>
 

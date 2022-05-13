@@ -72,7 +72,6 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         database = FirebaseDatabase.getInstance();
-
         messagesList = new ArrayList<>();
         adapter = new MessagesAdapter(this, messagesList);
         dialog = new ProgressDialog(this);
@@ -131,7 +130,8 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.recyclerViewChat.setAdapter(adapter);
-        binding.recyclerViewChat.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.recyclerViewChat.setLayoutManager(layoutManager);
 
 //        toh jo current user login hua va hoga uski uid aajayegi
         senderUid = FirebaseAuth.getInstance().getUid();
@@ -142,8 +142,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Messages messages = snapshot1.getValue(Messages.class);
-                    messagesList.add(messages);
+
+                        Messages messages = snapshot1.getValue(Messages.class);
+
+                            messagesList.add(messages);
+
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -153,27 +156,32 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        binding.sendBtnIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Date date = new Date();
-                String messageTxt = binding.messageBoxEditText.getText().toString();
-                Messages messages = new Messages(messageTxt, senderUid, date.getTime());
-                binding.messageBoxEditText.setText("");
-                database.getReference().child("chats").child(senderRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        database.getReference().child("chats").child(receiverRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            binding.sendBtnIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Date date = new Date();
+                    String messageTxt = binding.messageBoxEditText.getText().toString();
+                    if(!messageTxt.isEmpty()){
+                        Messages messages = new Messages(messageTxt, senderUid, date.getTime());
+                        binding.messageBoxEditText.setText("");
+                        database.getReference().child("chats").child(senderRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                sendMessageNotification(name,messageTxt,token);
+                                database.getReference().child("chats").child(receiverRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        sendMessageNotification(name, messageTxt, token);
+                                    }
+                                });
                             }
                         });
                     }
-                });
-            }
+                }
 
-        });
+            });
+
+
 
         binding.attachmentIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,14 +233,14 @@ public class ChatActivity extends AppCompatActivity {
 //                    Toast.makeText(ChatActivity.this, error.getLocalizedMessage()+"", Toast.LENGTH_LONG).show();
 
                 }
-            }){
+            }) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String,String>map = new HashMap<>();
+                    HashMap<String, String> map = new HashMap<>();
 //                    writing Key= is important
-                    String key ="Key=AAAAs5k_AYw:APA91bGa3fkCX7MYRrGs0FMG8A4H5h9XPlzkokSKjXZrjwVtgPVCSbO8A1JQ3yIPotzPvGEg-fQEkT2iMoH0hPyhYGMtlWQPpBtUBKHBaTWhBsZYxYHqO2zzNBmbYyZVMW9XhXsDQoT2";
-                    map.put("Authorization",key);
-                    map.put("Content-Type","application/json");
+                    String key = "Key=AAAAs5k_AYw:APA91bGa3fkCX7MYRrGs0FMG8A4H5h9XPlzkokSKjXZrjwVtgPVCSbO8A1JQ3yIPotzPvGEg-fQEkT2iMoH0hPyhYGMtlWQPpBtUBKHBaTWhBsZYxYHqO2zzNBmbYyZVMW9XhXsDQoT2";
+                    map.put("Authorization", key);
+                    map.put("Content-Type", "application/json");
 
                     return map;
                 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/postbackground"
+    android:background="#EBF1F7"
     android:layout_height="match_parent"
     tools:context=".Activities.EditprofileActivity">
 
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_image" />
+        app:srcCompat="@drawable/ic_user_image_2" />
 
     <EditText
         android:id="@+id/nameEdit"
@@ -27,9 +27,12 @@
         android:layout_marginTop="36dp"
         android:layout_marginRight="20dp"
         android:ems="10"
+        android:padding="20dp"
+        android:paddingStart="13dp"
+        android:textSize="15sp"
         android:hint="Name"
+        android:background="@drawable/rounded_textview"
         android:inputType="textPersonName"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
@@ -44,7 +47,10 @@
         android:ems="10"
         android:hint="Skills"
         android:inputType="textPersonName"
-        android:textSize="20sp"
+        android:background="@drawable/rounded_textview"
+        android:padding="20dp"
+        android:paddingStart="13dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
@@ -58,8 +64,11 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:hint="Course Name"
+        android:padding="20dp"
+        android:paddingStart="13dp"
+        android:textSize="15sp"
         android:inputType="textPersonName"
-        android:textSize="20sp"
+        android:background="@drawable/rounded_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,9 +82,12 @@
         android:layout_marginTop="112dp"
         android:layout_marginRight="20dp"
         android:ems="10"
+        android:padding="20dp"
+        android:paddingStart="13dp"
+        android:textSize="15sp"
         android:hint="University name"
+        android:background="@drawable/rounded_textview"
         android:inputType="textPersonName"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />

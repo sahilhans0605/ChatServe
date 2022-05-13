@@ -50,17 +50,13 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         binding = FragmentHomeBinding.bind(view);
+        binding.shimmerFrameLayout.startShimmer();
         postlist = new ArrayList<postDataModel>();
-        dialog=new ProgressDialog(getContext());
+        dialog = new ProgressDialog(getContext());
         dialog.setMessage("Fetching data....");
         dialog.setCanceledOnTouchOutside(false);
-
-        dialog.show();
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-//        Log.i("user waali",user.getUid());
-//        Log.i("non user waali",FirebaseAuth.getInstance().getUid());
-
         adapterHomePost = new HomePostAdapter(postlist, getContext());
         binding.recyclerViewHome.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewHome.setAdapter(adapterHomePost);
@@ -115,14 +111,43 @@ public class HomeFragment extends Fragment {
 //                        Intent intent = new Intent(getContext(), SearchActivity.class);
 
                     }
-                    if(postlist.isEmpty()) {
-                        dialog.dismiss();
-//                        Toast.makeText(getContext(),"No collaborations yet,Collab with people to check their posts in the search section:)",Toast.LENGTH_LONG).show();
 
-                    }
-                    dialog.dismiss();
+//                    dialog.dismiss();
+
+                }
+
+                if (postlist.isEmpty()) {
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                                postDataModel dataModel = snapshot1.getValue(postDataModel.class);
+                                postlist.add(dataModel);
+                            }
+                            binding.shimmerFrameLayout.stopShimmer();
+                            binding.shimmerFrameLayout.hideShimmer();
+
+                            binding.shimmerFrameLayout.setVisibility(View.GONE);
+                            binding.recyclerViewHome.setVisibility(View.VISIBLE);
+
+                            adapterHomePost.notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }else{
+                    binding.shimmerFrameLayout.stopShimmer();
+                    binding.shimmerFrameLayout.setVisibility(View.GONE);
+                    binding.recyclerViewHome.setVisibility(View.VISIBLE);
                     adapterHomePost.notifyDataSetChanged();
                 }
+
+
             }
 
             @Override

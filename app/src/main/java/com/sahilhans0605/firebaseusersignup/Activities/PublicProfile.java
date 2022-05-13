@@ -1,10 +1,12 @@
 package com.sahilhans0605.firebaseusersignup.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sahilhans0605.firebaseusersignup.Adapters.postUserAdapterPublic;
 import com.sahilhans0605.firebaseusersignup.R;
+import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityPublicProfileBinding;
 
@@ -48,6 +51,11 @@ public class PublicProfile extends AppCompatActivity {
         binding = ActivityPublicProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         postList = new ArrayList<>();
+        ActionBar customActionBar = getSupportActionBar();
+        customActionBar.setDisplayShowCustomEnabled(true);
+        customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        customActionBar.setCustomView(R.layout.custom_action_bar_public);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         adapter = new postUserAdapterPublic(this, postList);
         LinearLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
@@ -64,12 +72,52 @@ public class PublicProfile extends AppCompatActivity {
         binding.name.setText(name);
         binding.universityNamePublicprofile.setText(university);
         binding.description.setText(skills);
-        Toast.makeText(this, name+"'s"+" Profile :)", Toast.LENGTH_LONG).show();
+
+        db = FirebaseDatabase.getInstance();
+
+        DatabaseReference dbRef = db.getReference("Users").child(id);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                DataModel data = snapshot.getValue(DataModel.class);
+                binding.name.setText(data.getName());
+                binding.universityNamePublicprofile.setText(data.getUniversityCollege());
+                binding.description.setText(data.getSkills());
+                Glide.with(PublicProfile.this).load(data.getPurl()).into(binding.imageView);
+
+//                yha pe humne for loop nhi lgaya kyoki...saara data fetch nhi krwana sirf particular userid ka hi data fetch krwana h....i.e recycler view mein saara data nhi laana
+                binding.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PublicProfile.this, UserImageDisplay.class);
+                        intent.putExtra("userProfile", data.getPurl());
+                        startActivity(intent);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 //        if (id.equals(firebaseUser.getUid().toString())) {
 //            binding.collabButton.setText("Edit Profile");
 //        }
-        Glide.with(PublicProfile.this).load(profileImage).placeholder(R.drawable.user_image).into(binding.imageView);
+        Glide.with(PublicProfile.this).load(profileImage).placeholder(R.drawable.ic_user_image_2).into(binding.imageView);
+        binding.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PublicProfile.this, UserImageDisplay.class);
+                intent.putExtra("userProfile", profileImage);
+                startActivity(intent);
+            }
+        });
+
         ref.child("collab").child(firebaseUser.getUid()).child("collaborating").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,9 +157,49 @@ public class PublicProfile extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        binding.chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                db = FirebaseDatabase.getInstance();
+
+                DatabaseReference dbRef = db.getReference("Users").child(id);
+                dbRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        DataModel data = snapshot.getValue(DataModel.class);
+
+//                yha pe humne for loop nhi lgaya kyoki...saara data fetch nhi krwana sirf particular userid ka hi data fetch krwana h....i.e recycler view mein saara data nhi laana
+                        Intent intent = new Intent(PublicProfile.this, ChatActivity.class);
+                        intent.putExtra("name", data.getName());
+                        intent.putExtra("uid", id);
+                        intent.putExtra("Token", data.getToken());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+            }
+        });
+
+
+
+
         peopleCollaboratedWithYou();
         readRecyclerViewPosts();
     }
+
 
     private void readRecyclerViewPosts() {
         DatabaseReference reference = db.getReference("Posts");
@@ -156,5 +244,10 @@ public class PublicProfile extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
 
 }

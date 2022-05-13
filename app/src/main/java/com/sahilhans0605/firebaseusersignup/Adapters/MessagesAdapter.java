@@ -63,7 +63,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
             if (messages.getMessage().equals("Image")) {
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context).load(messages.getPurl()).placeholder(R.drawable.placeholder).into(viewHolder.binding.image);
+                Glide.with(context).load(messages.getPurl()).placeholder(R.drawable.loadingchatimage).into(viewHolder.binding.image);
             }
             viewHolder.binding.message.setText(messages.getMessage());
         } else {

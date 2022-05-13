@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.Adapters.myAdapter;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivitySearchBinding;
@@ -46,11 +48,16 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        dialog=new ProgressDialog(this);
+        ActionBar customActionBar = getSupportActionBar();
+        customActionBar.setDisplayShowCustomEnabled(true);
+        customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        customActionBar.setCustomView(R.layout.custom_action_bar_search);
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Fetching data....");
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         binding.recyclerView.hasFixedSize();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toast.makeText(this, "Search for people by their skills...", Toast.LENGTH_LONG).show();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
@@ -114,9 +121,12 @@ public class SearchActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
                     DataModel dataModel = snapshot1.getValue(DataModel.class);
-                    if (!dataModel.getId().equals(FirebaseAuth.getInstance().getUid()))
 
+                    if (!dataModel.getId().equals(FirebaseAuth.getInstance().getUid())) {
                         data.add(dataModel);
+
+                    }
+
 
                 }
                 dialog.dismiss();
@@ -135,4 +145,4 @@ public class SearchActivity extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
-    }
+}

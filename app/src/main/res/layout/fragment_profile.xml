@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/postbackground"
     android:layout_height="match_parent"
+    android:background="#EBF1F7"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBF1F7"
     tools:context=".Fragments.ProfileFragment">
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="164dp"
-        android:layout_height="148dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="5dp"
+        android:padding="3dp"
+        android:background="@drawable/user_image_background_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046"
-        app:srcCompat="@drawable/user_image" />
+        app:srcCompat="@drawable/ic_user_image_2"
+        />
 
 
     <TextView
@@ -25,13 +35,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="23dp"
         android:text="NAME"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -40,85 +50,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="5dp"
         android:text="UniversityName"
         android:textColor="@color/black"
-
         android:textSize="20sp"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/Self" />
 
     <TextView
         android:id="@+id/descriptionSelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="5dp"
         android:text="Description"
         android:textColor="@color/black"
-
         android:textSize="15sp"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/universityNameSelf" />
 
     <TextView
         android:id="@+id/collaborationsSelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="5dp"
         android:text="Collaborations"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionSelf" />
 
     <Button
         android:id="@+id/EditProfile"
-        android:layout_width="181dp"
-        android:layout_height="51dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#FC6B68"
+        android:padding="15dp"
         android:text="EDIT PROFILE"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/logout"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collaborationsSelf"
-        app:layout_constraintVertical_bias="0.924" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewPostSelf" />
 
     <Button
         android:id="@+id/logout"
-        android:layout_width="181dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="10dp"
-        android:backgroundTint="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#FC6B68"
+        android:padding="15dp"
         android:text="Logout"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collaborationsSelf"
-        app:layout_constraintVertical_bias="0.924" />
+        app:layout_constraintTop_toTopOf="@+id/EditProfile" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPostSelf"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditProfile"
+        android:layout_height="200dp"
+        android:layout_marginTop="15dp"
+        android:background="#E6D0C4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/collaborationsSelf"
         tools:listitem="@layout/post_profile_user_and_public" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

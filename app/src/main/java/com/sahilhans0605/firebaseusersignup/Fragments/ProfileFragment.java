@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,8 +29,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.sahilhans0605.firebaseusersignup.Activities.AddPostActivity;
 import com.sahilhans0605.firebaseusersignup.Activities.EditprofileActivity;
 import com.sahilhans0605.firebaseusersignup.Activities.HomeActivityPost;
+import com.sahilhans0605.firebaseusersignup.Activities.ImageDisplay;
 import com.sahilhans0605.firebaseusersignup.Activities.LoginActivity;
 import com.sahilhans0605.firebaseusersignup.Activities.SelfProfile;
+import com.sahilhans0605.firebaseusersignup.Activities.UserImageDisplay;
 import com.sahilhans0605.firebaseusersignup.Adapters.HomePostAdapter;
 import com.sahilhans0605.firebaseusersignup.Adapters.postUserAdapterPublic;
 import com.sahilhans0605.firebaseusersignup.R;
@@ -56,8 +60,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-//        Intent intent = new Intent(getContext(), SelfProfile.class);
-//        startActivity(intent);
         binding = FragmentProfileBinding.bind(view);
         db = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -83,15 +85,27 @@ public class ProfileFragment extends Fragment {
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         binding.recyclerViewPostSelf.setLayoutManager(layoutManager);
         binding.recyclerViewPostSelf.setAdapter(adapter);
+
         DatabaseReference ref = db.getReference().child("Users").child(user.getUid());
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 DataModel model = snapshot.getValue(DataModel.class);
+                binding.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), UserImageDisplay.class);
+                        intent.putExtra("userProfile", model.getPurl());
+                        startActivity(intent);
+                    }
+                });
                 binding.Self.setText(model.getName());
                 binding.universityNameSelf.setText(model.getUniversityCollege());
                 binding.descriptionSelf.setText(model.getSkills());
-                Glide.with(getContext()).load(model.getPurl()).placeholder(R.drawable.user_image).into(binding.imageView);
+                if (getActivity() != null) {
+                    Glide.with(getContext()).load(model.getPurl()).placeholder(R.drawable.ic_user_image_2).apply(new RequestOptions().override(500, 500)).centerInside().into(binding.imageView);
+
+                }
 
             }
 
@@ -106,6 +120,7 @@ public class ProfileFragment extends Fragment {
         return view;
 
     }
+
     public void peopleCollaboratedWithYou() {
         DatabaseReference refer = db.getReference().child("collab").child(user.getUid()).child("collaboraters");
         refer.addValueEventListener(new ValueEventListener() {
@@ -148,7 +163,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 
 
 }

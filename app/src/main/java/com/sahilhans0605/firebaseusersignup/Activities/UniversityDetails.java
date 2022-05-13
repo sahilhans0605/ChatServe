@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -11,10 +12,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +45,12 @@ import java.util.Date;
 public class UniversityDetails extends AppCompatActivity {
     UniversityDetailsBinding binding;
 
-
-    FirebaseUser user;
     Uri browsedImage;
     ProgressDialog dialog;
+    ProgressDialog dialog1;
+    FirebaseAuth auth;
+    DatabaseReference dbRef;
+
     ActivityResultLauncher<String> getImage = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
@@ -56,12 +64,15 @@ public class UniversityDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = UniversityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        auth = FirebaseAuth.getInstance();
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Uploading Data");
+        dialog.setMessage("Uploading Data ");
         dialog.setCanceledOnTouchOutside(false);
+        ActionBar customActionBar = getSupportActionBar();
+        customActionBar.setDisplayShowCustomEnabled(true);
+        customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        customActionBar.setCustomView(R.layout.custom_action_bar);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
         binding.userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,104 +98,107 @@ public class UniversityDetails extends AppCompatActivity {
         });
 
 
-
-    }
-
-    private void uploadDataToFirebase() {
-        if (binding.universityCollegeInstitute.getText().toString().isEmpty()) {
-            binding.universityCollegeInstitute.setError("Field Required*");
-        } else if (binding.course.getText().toString().isEmpty()) {
-            binding.course.setError("Field Required*");
-
-        } else if (binding.nameUniversityDetails.getText().toString().isEmpty()) {
-            binding.nameUniversityDetails.setError("Field Required*");
-
-        } else if (binding.skills.getText().toString().isEmpty()) {
-            binding.skills.setError("Field Required*");
-
-        } else {
-            String name;
-            String course;
-            String universityCollege;
-            String skills;
-            String id;
-            id = user.getUid();
-            name = binding.nameUniversityDetails.getText().toString();
-            universityCollege = binding.universityCollegeInstitute.getText().toString();
-            course = binding.course.getText().toString();
-            skills = binding.skills.getText().toString();
-            dialog.show();
-
-            Date date = new Date();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference ref = storage.getReference("UserProfiles " + date.getTime());
-            if (browsedImage != null) {
-                ref.putFile(browsedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                dialog.dismiss();
-                                FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
-                                    @Override
-                                    public void onSuccess(String s) {
-                                        FirebaseDatabase db = FirebaseDatabase.getInstance();
-                                        DatabaseReference dbRef = db.getReference().child("Users").child(id);
-                                        DataModel data = new DataModel(id, universityCollege, name, skills, course, uri.toString());
-                                        data.setToken(s);
-
-                                        dbRef.setValue(data);
-                                        Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
-                                        startActivity(intent);
-                                        finishAffinity();
-                                    }
-                                });
-
-
-                            }
-                        });
-                        binding.universityCollegeInstitute.setText("");
-                        binding.course.setText("");
-                        binding.nameUniversityDetails.setText("");
-                        binding.skills.setText("");
-                        binding.userImage.setImageResource(R.drawable.user);
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                        float percent = 100 * (snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        dialog.setMessage("Uploaded " + (int) percent + " % ");
-
-                    }
-                });
-
-            } else {
-                binding.userImage.setImageResource(R.drawable.user_image);
-                dialog.dismiss();
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference dbRef = db.getReference().child("Users").child(id);
-                DataModel data = new DataModel(id, universityCollege, name, skills, course, "No image");
-                dbRef.setValue(data);
-                Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
-                startActivity(intent);
-                finishAffinity();
-
-            }
-            binding.universityCollegeInstitute.setText("");
-            binding.course.setText("");
-            binding.nameUniversityDetails.setText("");
-            binding.skills.setText("");
-            binding.userImage.setImageResource(R.drawable.user);
-        }
     }
 
 
     public void signUp(View view) {
-        uploadDataToFirebase();
+
+        String name = binding.nameUniversityDetails.getText().toString();
+        String universityCollege = binding.universityCollegeInstitute.getText().toString();
+        String course = binding.course.getText().toString();
+        String skills = binding.skills.getText().toString();
+
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(universityCollege) || TextUtils.isEmpty(course) || TextUtils.isEmpty(skills)) {
+            Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
+        }else{
+            String email = getIntent().getStringExtra("EMAIL");
+            String password = getIntent().getStringExtra("PASSWORD");
+
+            RegisterUser(name, universityCollege, course, skills, email, password);
+        }
+
+
+    }
+
+    private void RegisterUser(String name, String universityCollege, String course, String skills, String email, String password) {
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(UniversityDetails.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    String userid = firebaseUser.getUid();
+                    dialog.show();
+                    Date date = new Date();
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference ref = storage.getReference("UserProfiles " + date.getTime());
+                    if (browsedImage != null) {
+                        ref.putFile(browsedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        dialog.dismiss();
+                                        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+                                            @Override
+                                            public void onSuccess(String s) {
+                                                dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userid);
+                                                DataModel data = new DataModel(userid, universityCollege, name, skills, course, uri.toString());
+                                                data.setToken(s);
+                                                dbRef.setValue(data);
+                                                Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
+                                                startActivity(intent);
+                                                finishAffinity();
+                                            }
+                                        });
+
+
+                                    }
+                                });
+                                binding.universityCollegeInstitute.setText("");
+                                binding.course.setText("");
+                                binding.nameUniversityDetails.setText("");
+                                binding.skills.setText("");
+                                binding.userImage.setImageResource(R.drawable.ic_user_image_2);
+                            }
+                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                float percent = 100 * (snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                dialog.setMessage("Uploaded " + (int) percent + " % ");
+
+                            }
+                        });
+
+                    } else {
+                        dialog.show();
+                        binding.userImage.setImageResource(R.drawable.ic_user_image_2);
+                        FirebaseUser fUser = auth.getCurrentUser();
+                        String uid = fUser.getUid();
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                        DataModel data = new DataModel(uid, universityCollege, name, skills, course, "No image");
+                        dbRef.setValue(data);
+                        Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
+                        startActivity(intent);
+                        finishAffinity();
+
+                    }
+                    binding.universityCollegeInstitute.setText("");
+                    binding.course.setText("");
+                    binding.nameUniversityDetails.setText("");
+                    binding.skills.setText("");
+                    binding.userImage.setImageResource(R.drawable.ic_user_image_2);
+                } else {
+                    Toast.makeText(UniversityDetails.this, "" + "User with this email already exists", Toast.LENGTH_LONG).show();
+                    Log.i("Info", task.getException() + "");
+
+                }
+            }
+        });
+
 
     }
 }

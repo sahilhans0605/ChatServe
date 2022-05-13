@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sahilhans0605.firebaseusersignup.Activities.ChatActivity;
+import com.sahilhans0605.firebaseusersignup.Activities.ImageDisplay;
+import com.sahilhans0605.firebaseusersignup.Activities.PublicProfile;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
@@ -50,10 +53,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.myView
         db = FirebaseDatabase.getInstance();
         postDataModel PostdataModel = postData.get(position);
         holder.binding.postDescriptionpostActivity.setText(PostdataModel.getDescription());
-        Glide.with(context).load(PostdataModel.getPurl()).into(holder.binding.postimage);
+        Glide.with(context).load(PostdataModel.getPurl()).apply(new RequestOptions().override(500, 500)).centerCrop().into(holder.binding.postimage);
         publisherInfo(holder.userImage, holder.username, holder.UniversityName, PostdataModel.getId());
         noOfLikes(PostdataModel.getPostId(), holder.binding.noOfLikes);
-        isLiked(PostdataModel.getPostId(),holder.binding.likeButton);
+        isLiked(PostdataModel.getPostId(), holder.binding.likeButton);
         holder.binding.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +73,38 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.myView
                 }
             }
         });
+        holder.binding.postimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImageDisplay.class);
+                intent.putExtra("postImage", PostdataModel.getPurl());
+                context.startActivity(intent);
+            }
+        });
+        holder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PublicProfile.class);
+                intent.putExtra("id", PostdataModel.getId());
+                context.startActivity(intent);
+            }
+        });
+        holder.UniversityName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PublicProfile.class);
+                intent.putExtra("id", PostdataModel.getId());
+                context.startActivity(intent);
+            }
+        });
+        holder.userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PublicProfile.class);
+                intent.putExtra("id", PostdataModel.getId());
+                context.startActivity(intent);
+            }
+        });
 
 
     }
@@ -78,10 +113,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.myView
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(FirebaseAuth.getInstance().getUid()).exists()){
+                if (snapshot.child(FirebaseAuth.getInstance().getUid()).exists()) {
                     likeButton.setTag("liked");
                     likeButton.setImageResource(R.drawable.filledlike);
-                }else{
+                } else {
                     likeButton.setTag("unliked");
                     likeButton.setImageResource(R.drawable.emptylike);
                 }

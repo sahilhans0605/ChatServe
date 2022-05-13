@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_homesvg"
         android:title="HOME" />
 
 
@@ -13,14 +13,14 @@
         android:icon="@drawable/ic_add"
         android:title="ADD" />
 
-    <item
-        android:id="@+id/searchFragment"
-        android:icon="@drawable/ic_search"
-        android:title="SEARCH" />
+<!--    <item-->
+<!--        android:id="@+id/searchFragment"-->
+<!--        android:icon="@drawable/ic_search"-->
+<!--        android:title="SEARCH" />-->
 
 
     <item
         android:id="@+id/settingsFragment"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic__6897997381548233623"
         android:title="PROFILE" />
 </menu>

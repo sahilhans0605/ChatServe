@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="?selectableItemBackground">
+    android:layout_margin="6dp"
+    android:background="#FAF9F9"
+    android:elevation="20dp"
+    app:circularflow_defaultRadius="10dp"
+    app:circularflow_radiusInDP="10dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="371dp"
-        android:layout_height="124dp"
-        android:layout_margin="10dp"
-        android:background="?selectableItemBackground"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/card_view_shape"
+        android:backgroundTint="#B6D4DC"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,69 +25,86 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_marginLeft="15dp"
+            android:padding="2dp"
+            android:background="@drawable/stroke_image_white"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             app:srcCompat="@android:drawable/ic_notification_overlay" />
 
         <TextView
             android:id="@+id/nameSampleRow"
-            android:layout_width="273dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="6dp"
             android:text="Name"
             android:textColor="@color/black"
+            android:textEditSuggestionItemLayout="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/universityNameSampleRow"
-            android:layout_width="273dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="30dp"
             android:text="University Name"
-            android:textColor="#676767"
+            android:textColor="#636262"
+            android:textEditSuggestionItemLayout="@color/white"
             android:textSize="16sp"
 
             />
 
         <TextView
             android:id="@+id/descriptionSampleRow"
-            android:layout_width="273dp"
-            android:layout_height="33dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
             android:layout_marginTop="50dp"
             android:inputType="textMultiLine"
             android:text="Description"
-            android:textColor="#A19A9A"
+            android:textColor="@color/white"
+            android:textEditSuggestionItemLayout="@color/white"
             android:textSize="13sp" />
 
-        <Button
-            android:id="@+id/button_collab"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="0dp"
-            android:backgroundTint="#000000"
-            android:text="collab"
-            android:textSize="10sp"
-            app:cornerRadius="10dp" />
+        <!--        <Button-->
+        <!--            android:id="@+id/button_collab"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="37dp"-->
+        <!--            android:layout_marginLeft="130dp"-->
+        <!--            android:layout_marginTop="80dp"-->
+        <!--            android:layout_marginRight="0dp"-->
+        <!--            android:backgroundTint="#000000"-->
+        <!--            android:text="collab"-->
+        <!--            android:textSize="10sp"-->
+        <!--            app:cornerRadius="10dp" />-->
 
-        <Button
-            android:id="@+id/button_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_marginLeft="270dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="0dp"
-            android:backgroundTint="#000000"
-            android:text="Message"
-            android:textSize="10sp"
-            app:cornerRadius="10dp" />
+        <!--        <Button-->
+        <!--            android:id="@+id/button_chat"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="270dp"-->
+        <!--            android:layout_marginTop="80dp"-->
+        <!--            android:layout_marginRight="0dp"-->
+        <!--            android:backgroundTint="#FC6B68"-->
+        <!--            android:padding="15dp"-->
+        <!--            android:textSize="15sp"-->
+        <!--            app:cornerRadius="10dp"-->
+
+        <!--            android:text="Message"-->
+        <!--            />-->
+
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_chat" />
 
 
     </androidx.cardview.widget.CardView>
