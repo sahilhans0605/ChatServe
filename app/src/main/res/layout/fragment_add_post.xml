@@ -52,6 +52,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="22dp"
                 android:layout_marginEnd="8dp"
+                android:keyboardNavigationCluster="true"
+                android:forceHasOverlappingRendering="true"
                 android:background="@drawable/rounded_textview"
                 android:hint="Add post description here..."
                 android:inputType="textMultiLine"
@@ -59,12 +61,13 @@
                 app:layout_constraintEnd_toEndOf="@+id/postImageSelectedFragment"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="@+id/postImageSelectedFragment"
-                app:layout_constraintTop_toBottomOf="@+id/postImageSelectedFragment" />
+                app:layout_constraintTop_toBottomOf="@+id/postImageSelectedFragment"
+                tools:targetApi="o" />
 
             <Button
                 android:id="@+id/postButtonFragment"
-                android:layout_width="336dp"
-                android:layout_height="52dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"

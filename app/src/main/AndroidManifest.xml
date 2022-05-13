@@ -15,11 +15,12 @@
         <activity
             android:name=".Activities.UserImageDisplay"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.ImageDisplay"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".Activities.EditprofileActivity"
             android:exported="false"
@@ -63,7 +64,7 @@
         <activity
             android:name=".Activities.HomeActivityPost"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="true"
