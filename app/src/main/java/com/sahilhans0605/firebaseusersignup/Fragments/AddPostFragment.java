@@ -2,6 +2,7 @@ package com.sahilhans0605.firebaseusersignup.Fragments;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,7 +79,6 @@ public class AddPostFragment extends Fragment {
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Uploading Data");
         Toast.makeText(getContext(), "Add new post here..", Toast.LENGTH_SHORT).show();
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         binding.postImageSelectedFragment.setOnClickListener(new View.OnClickListener() {
             @Override

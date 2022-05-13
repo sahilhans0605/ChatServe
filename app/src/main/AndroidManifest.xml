@@ -14,41 +14,61 @@
         android:theme="@style/Theme.FirebaseUserSignUp">
         <activity
             android:name=".Activities.UserImageDisplay"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activities.ImageDisplay"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.EditprofileActivity"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.SelfProfile"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.PublicProfile"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.AddPostActivity"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.RegisterActivity"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.UniversityDetails"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.HomeActivityPost"
             android:exported="true"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
