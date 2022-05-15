@@ -94,6 +94,7 @@
             android:layout_marginRight="80dp"
             android:text="EDIT PROFILE"
             android:backgroundTint="#FC6B68"
+            android:textColor="@color/white"
             android:padding="15dp"
             android:textSize="15sp"
             app:cornerRadius="10dp"

@@ -22,64 +22,28 @@
 
             <ImageView
                 android:id="@+id/postImageSelectedFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="80dp"
                 android:padding="5dp"
                 android:src="@drawable/addpostimage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="ADD NEW POST HERE"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/postDescriptionFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginEnd="8dp"
-                android:keyboardNavigationCluster="true"
-                android:forceHasOverlappingRendering="true"
-                android:background="@drawable/rounded_textview"
-                android:hint="Add post description here..."
-                android:inputType="textMultiLine"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/postImageSelectedFragment"
-                app:layout_constraintHorizontal_bias="0.533"
-                app:layout_constraintStart_toStartOf="@+id/postImageSelectedFragment"
-                app:layout_constraintTop_toBottomOf="@+id/postImageSelectedFragment"
-                tools:targetApi="o" />
 
             <Button
                 android:id="@+id/postButtonFragment"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:backgroundTint="@color/black"
-                android:text="@string/post"
+                android:layout_marginTop="82dp"
+                android:backgroundTint="#FC6B68"
+                android:text="----Add description----"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.76"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postDescriptionFragment" />
+                app:layout_constraintTop_toBottomOf="@+id/postImageSelectedFragment" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

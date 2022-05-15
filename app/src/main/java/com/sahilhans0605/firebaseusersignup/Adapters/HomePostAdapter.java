@@ -53,6 +53,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.myView
         db = FirebaseDatabase.getInstance();
         postDataModel PostdataModel = postData.get(position);
         holder.binding.postDescriptionpostActivity.setText(PostdataModel.getDescription());
+        holder.binding.PostDate.setText(PostdataModel.getPostDate());
         Glide.with(context).load(PostdataModel.getPurl()).apply(new RequestOptions().override(500, 500)).centerCrop().into(holder.binding.postimage);
         publisherInfo(holder.userImage, holder.username, holder.UniversityName, PostdataModel.getId());
         noOfLikes(PostdataModel.getPostId(), holder.binding.noOfLikes);

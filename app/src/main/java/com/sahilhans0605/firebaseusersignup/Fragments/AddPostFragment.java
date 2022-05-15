@@ -42,6 +42,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.sahilhans0605.firebaseusersignup.Activities.AddPostActivity;
 import com.sahilhans0605.firebaseusersignup.Activities.HomeActivityPost;
+import com.sahilhans0605.firebaseusersignup.Activities.postDescription;
 import com.sahilhans0605.firebaseusersignup.Adapters.HomePostAdapter;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
@@ -78,8 +79,8 @@ public class AddPostFragment extends Fragment {
         binding = FragmentAddPostBinding.bind(view);
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Uploading Data");
-        Toast.makeText(getContext(), "Add new post here..", Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        Toast.makeText(getContext(), "Add new post here..", Toast.LENGTH_SHORT).show();
         binding.postImageSelectedFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,68 +107,21 @@ public class AddPostFragment extends Fragment {
         binding.postButtonFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadDataToFirebase();
+                if (browsedImage != null) {
+                    Intent intent = new Intent(getContext(), postDescription.class);
+                    intent.putExtra("postImage", browsedImage);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Add an image..Click on \"+\"", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
-
 
 
         return view;
 
     }
-
-    private void uploadDataToFirebase() {
-        if (binding.postDescriptionFragment.getText().toString().isEmpty()) {
-            binding.postDescriptionFragment.setError("Add Something");
-
-        } else if (browsedImage == null) {
-
-            Toast.makeText(getContext(), "Add an image for the post!", Toast.LENGTH_LONG).show();
-        } else {
-
-            String postDescription;
-            String id;
-            id = user.getUid();
-            postDescription = binding.postDescriptionFragment.getText().toString();
-            dialog.show();
-
-            Date date = new Date();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference ref = storage.getReference("UserPosts " + date.getTime());
-            ref.putFile(browsedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            dialog.dismiss();
-                            FirebaseDatabase db = FirebaseDatabase.getInstance();
-                            DatabaseReference dbRef = db.getReference().child("Posts");
-                            String postId = dbRef.push().getKey();
-                            postDataModel data = new postDataModel(postDescription, uri.toString(), id, postId);
-                            dbRef.child(postId).setValue(data);
-                            Toast.makeText(getContext(), "Post Added", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getContext(), HomeActivityPost.class);
-                            startActivity(intent);
-                        }
-                    });
-                    binding.postDescriptionFragment.setText("");
-                    binding.postImageSelectedFragment.setImageResource(R.drawable.newpost);
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                    float percent = 100 * (snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                    dialog.setMessage("Uploaded " + (int) percent + " % ");
-
-                }
-            });
-
-        }
-
-    }
-
 
 
 }

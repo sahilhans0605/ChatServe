@@ -115,7 +115,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("name", dataModel.getName());
                 intent.putExtra("uid", dataModel.getId());
-                intent.putExtra("Token", dataModel.getToken());
+                intent.putExtra("token", dataModel.getToken());
                 context.startActivity(intent);
 
             }

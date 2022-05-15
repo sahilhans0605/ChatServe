@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +41,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.sahilhans0605.firebaseusersignup.Adapters.MessagesAdapter;
+import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.dataModel.Messages;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityChatBinding;
 
@@ -64,7 +66,9 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseStorage storage;
     String senderUid;
     String receiverUid;
-
+    String name;
+    String token;
+    String receiverName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,9 +126,9 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
         receiverUid = getIntent().getStringExtra("uid");
-        String token = getIntent().getStringExtra("Token");
+        token = getIntent().getStringExtra("token");
 
 //        Toast.makeText(ChatActivity.this, token + "", Toast.LENGTH_LONG).show();
         getSupportActionBar().setTitle(name);
@@ -137,15 +141,29 @@ public class ChatActivity extends AppCompatActivity {
         senderUid = FirebaseAuth.getInstance().getUid();
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = db.getReference();
+        dbRef.child("Users").child(senderUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                DataModel data = snapshot.getValue(DataModel.class);
+                receiverName = data.getName() + "_" + data.getSkills() + "_" + data.getUniversityCollege();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         database.getReference().child("chats").child(senderRoom).child("messages").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
-                        Messages messages = snapshot1.getValue(Messages.class);
+                    Messages messages = snapshot1.getValue(Messages.class);
 
-                            messagesList.add(messages);
+                    messagesList.add(messages);
 
                 }
                 adapter.notifyDataSetChanged();
@@ -157,30 +175,29 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-            binding.sendBtnIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Date date = new Date();
-                    String messageTxt = binding.messageBoxEditText.getText().toString();
-                    if(!messageTxt.isEmpty()){
-                        Messages messages = new Messages(messageTxt, senderUid, date.getTime());
-                        binding.messageBoxEditText.setText("");
-                        database.getReference().child("chats").child(senderRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                database.getReference().child("chats").child(receiverRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        sendMessageNotification(name, messageTxt, token);
-                                    }
-                                });
-                            }
-                        });
-                    }
+        binding.sendBtnIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date date = new Date();
+                String messageTxt = binding.messageBoxEditText.getText().toString();
+                if (!messageTxt.isEmpty()) {
+                    Messages messages = new Messages(messageTxt, senderUid, date.getTime());
+                    binding.messageBoxEditText.setText("");
+                    database.getReference().child("chats").child(senderRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            database.getReference().child("chats").child(receiverRoom).child("messages").push().setValue(messages).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    sendMessageNotification(receiverName, messageTxt, token);
+                                }
+                            });
+                        }
+                    });
                 }
+            }
 
-            });
-
+        });
 
 
         binding.attachmentIcon.setOnClickListener(new View.OnClickListener() {

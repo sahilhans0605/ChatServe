@@ -1,112 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EBF1F7"
     android:layout_height="match_parent"
-    tools:context=".Activities.EditprofileActivity">
+    android:background="@drawable/loginback">
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userprofileEdit"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.412"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_user_image_2" />
-
-    <EditText
-        android:id="@+id/nameEdit"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:padding="20dp"
-        android:paddingStart="13dp"
-        android:textSize="15sp"
-        android:hint="Name"
-        android:background="@drawable/rounded_textview"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
-
-    <EditText
-        android:id="@+id/SkillsEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:hint="Skills"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_textview"
-        android:padding="20dp"
-        android:paddingStart="13dp"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
-
-    <EditText
-        android:id="@+id/CoursenameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:hint="Course Name"
-        android:padding="20dp"
-        android:paddingStart="13dp"
-        android:textSize="15sp"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
-
-    <EditText
-        android:id="@+id/UniversitynameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:padding="20dp"
-        android:paddingStart="13dp"
-        android:textSize="15sp"
-        android:hint="University name"
-        android:background="@drawable/rounded_textview"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
-
-    <Button
-        android:id="@+id/UpdateprofileButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:backgroundTint="@color/black"
-        android:text="Update Profile"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SkillsEdit"
-        app:layout_constraintVertical_bias="0.109" />
+        android:layout_height="match_parent"
+        android:background="#EBF1F7"
+        tools:context=".Activities.EditprofileActivity">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userprofileEdit"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.412"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user_image_2" />
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_textview"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:padding="20dp"
+            android:paddingStart="13dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
+
+        <EditText
+            android:id="@+id/SkillsEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="268dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_textview"
+            android:ems="10"
+            android:hint="Skills"
+            android:inputType="textPersonName"
+            android:padding="20dp"
+            android:paddingStart="13dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
+
+        <EditText
+            android:id="@+id/CoursenameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="192dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_textview"
+            android:ems="10"
+            android:hint="Course Name"
+            android:inputType="textPersonName"
+            android:padding="20dp"
+            android:paddingStart="13dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
+
+        <EditText
+            android:id="@+id/UniversitynameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_textview"
+            android:ems="10"
+            android:hint="University name"
+            android:inputType="textPersonName"
+            android:padding="20dp"
+            android:paddingStart="13dp"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userprofileEdit" />
+
+        <Button
+            android:id="@+id/UpdateprofileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#FC6B68"
+            android:text="Update Profile"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SkillsEdit"
+            app:layout_constraintVertical_bias="0.109" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -39,6 +39,8 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.DataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.UniversityDetailsBinding;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Date;
 
@@ -65,7 +67,10 @@ public class UniversityDetails extends AppCompatActivity {
         binding = UniversityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         auth = FirebaseAuth.getInstance();
+        dialog1 = new ProgressDialog(this);
         dialog = new ProgressDialog(this);
+        dialog1.setMessage("Processing...");
+        dialog1.setCanceledOnTouchOutside(false);
         dialog.setMessage("Uploading Data ");
         dialog.setCanceledOnTouchOutside(false);
         ActionBar customActionBar = getSupportActionBar();
@@ -79,6 +84,7 @@ public class UniversityDetails extends AppCompatActivity {
                 Dexter.withContext(UniversityDetails.this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE).withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+
                         getImage.launch("image/*");
                     }
 
@@ -110,11 +116,12 @@ public class UniversityDetails extends AppCompatActivity {
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(universityCollege) || TextUtils.isEmpty(course) || TextUtils.isEmpty(skills)) {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             String email = getIntent().getStringExtra("EMAIL");
             String password = getIntent().getStringExtra("PASSWORD");
 
             RegisterUser(name, universityCollege, course, skills, email, password);
+            dialog1.show();
         }
 
 
@@ -127,6 +134,7 @@ public class UniversityDetails extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     String userid = firebaseUser.getUid();
+                    dialog1.dismiss();
                     dialog.show();
                     Date date = new Date();
                     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -146,21 +154,20 @@ public class UniversityDetails extends AppCompatActivity {
                                                 DataModel data = new DataModel(userid, universityCollege, name, skills, course, uri.toString());
                                                 data.setToken(s);
                                                 dbRef.setValue(data);
-                                                Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(UniversityDetails.this, "Profile Updated...", Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
                                                 startActivity(intent);
                                                 finishAffinity();
                                             }
                                         });
 
-
                                     }
                                 });
-                                binding.universityCollegeInstitute.setText("");
-                                binding.course.setText("");
-                                binding.nameUniversityDetails.setText("");
-                                binding.skills.setText("");
-                                binding.userImage.setImageResource(R.drawable.ic_user_image_2);
+//                                binding.universityCollegeInstitute.setText("");
+//                                binding.course.setText("");
+//                                binding.nameUniversityDetails.setText("");
+//                                binding.skills.setText("");
+//                                binding.userImage.setImageResource(R.drawable.ic_user_image_2);
                             }
                         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -173,6 +180,7 @@ public class UniversityDetails extends AppCompatActivity {
                         });
 
                     } else {
+                        dialog1.dismiss();
                         dialog.show();
                         binding.userImage.setImageResource(R.drawable.ic_user_image_2);
                         FirebaseUser fUser = auth.getCurrentUser();
@@ -180,18 +188,19 @@ public class UniversityDetails extends AppCompatActivity {
                         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
                         DataModel data = new DataModel(uid, universityCollege, name, skills, course, "No image");
                         dbRef.setValue(data);
-                        Toast.makeText(UniversityDetails.this, "Data Added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UniversityDetails.this, "Profile Updated...", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(UniversityDetails.this, HomeActivityPost.class);
                         startActivity(intent);
                         finishAffinity();
 
                     }
-                    binding.universityCollegeInstitute.setText("");
-                    binding.course.setText("");
-                    binding.nameUniversityDetails.setText("");
-                    binding.skills.setText("");
-                    binding.userImage.setImageResource(R.drawable.ic_user_image_2);
+//                    binding.universityCollegeInstitute.setText("");
+//                    binding.course.setText("");
+//                    binding.nameUniversityDetails.setText("");
+//                    binding.skills.setText("");
+//                    binding.userImage.setImageResource(R.drawable.ic_user_image_2);
                 } else {
+                    dialog1.dismiss();
                     Toast.makeText(UniversityDetails.this, "" + "User with this email already exists", Toast.LENGTH_LONG).show();
                     Log.i("Info", task.getException() + "");
 

@@ -1,14 +1,28 @@
 package com.sahilhans0605.firebaseusersignup.dataModel;
 
 public class postDataModel {
-    String description,purl,id,postId;
+    String description;
+    String purl;
+    String id;
+    String postId;
 
-    public postDataModel(String description, String purl, String id, String postId) {
+    public String getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(String postDate) {
+        this.postDate = postDate;
+    }
+
+    String postDate;
+
+    public postDataModel(String description, String purl, String id, String postId,String postDate) {
         this.description = description;
         this.purl = purl;
         this.id = id;
 //        here id is obviously the publisher id
         this.postId = postId;
+        this.postDate=postDate;
     }
 
     public String getDescription() {

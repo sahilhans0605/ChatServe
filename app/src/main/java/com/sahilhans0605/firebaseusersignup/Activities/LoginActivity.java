@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         dialog2.setTitle("Initializing");
         dialog2.setMessage("Logging you in automatically...");
         dialog2.setCanceledOnTouchOutside(false);
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         dialog = new ProgressDialog(this);
         dialog.setCanceledOnTouchOutside(false);
@@ -89,8 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!email.matches(emailPattern)) {
             binding.emailLogin.setError("Enter Correct Email");
 
-        } else if (password.isEmpty() || password.length() < 6) {
-            binding.password.setError("Add a strong Password");
+        } else if (password.isEmpty()) {
+            binding.password.setError("Enter Password");
 
 
         } else {

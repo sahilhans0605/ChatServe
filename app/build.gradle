@@ -5,11 +5,10 @@ plugins {
 
 android {
     compileSdk 31
-    viewBinding{
+    viewBinding {
         enabled = true;
 
     }
-
 
     defaultConfig {
         applicationId "com.sahilhans0605.firebaseusersignup"
@@ -36,7 +35,6 @@ android {
 }
 
 
-
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -59,6 +57,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.github.krokyze:ucropnedit:2.2.8'
     implementation 'com.jsibbold:zoomage:1.3.1'
 

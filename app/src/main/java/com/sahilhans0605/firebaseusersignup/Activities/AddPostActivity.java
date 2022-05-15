@@ -35,6 +35,8 @@ import com.sahilhans0605.firebaseusersignup.R;
 import com.sahilhans0605.firebaseusersignup.dataModel.postDataModel;
 import com.sahilhans0605.firebaseusersignup.databinding.ActivityAddPostBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddPostActivity extends AppCompatActivity {
@@ -53,6 +55,7 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityAddPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         dialog = new ProgressDialog(this);
@@ -117,10 +120,16 @@ public class AddPostActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             dialog.dismiss();
+                            Calendar calDate = Calendar.getInstance();
+                            SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+                            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+                            String postDate = currentDate.format(calDate.getTime()) + "•" + currentTime.format(calDate.getTime());
+
                             FirebaseDatabase db = FirebaseDatabase.getInstance();
                             DatabaseReference dbRef = db.getReference().child("Posts");
                             String postId = dbRef.push().getKey();
-                            postDataModel data = new postDataModel(postDescription, uri.toString(), id, postId);
+
+                            postDataModel data = new postDataModel(postDescription, uri.toString(), id, postId, postDate);
                             dbRef.child(postId).setValue(data);
                             Toast.makeText(AddPostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(AddPostActivity.this, HomeActivityPost.class);
